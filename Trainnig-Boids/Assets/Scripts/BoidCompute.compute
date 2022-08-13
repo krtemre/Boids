@@ -1,0 +1,42 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+static const int threadGroupSize = 1024;
+
+struct Boid {
+    float3 position;
+    float3 dir;
+
+    float3 flockHeading;
+    float3 flockCenter;
+    float3 seperationHeading;
+    int numOfFlockmates;
+};
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWStructuredBuffer<Boid> boids;
+int numBoids;
+float viewRadius;
+float avoidRadius;
+
+[numthreads(threadGroupSize, 1, 1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+    for (int i = 0; i < numBoids; i++) {
+        if (id.x != i) {
+            Boid boidI = boids[i];
+            float3 offset = boidI.position - boids[id.x].position;
+            float sqrDst = offset.x * offset.x + offset.y * offset.y + offset.z * offset.z;
+
+            if (sqrDst < viewRadius * viewRadius) {
+                boids[id.x].numOfFlockmates += 1;
+                boids[id.x].flockHeading += boidI.dir;
+                boids[id.x].flockCenter += boidI.position;
+
+                if (sqrDst < avoidRadius * avoidRadius) {
+                    boids[id.x].seperationHeading -= offset / sqrDst;
+                }
+            }
+        }
+    }
+}

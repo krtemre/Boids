@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8ae9ddacda32a408309aac6ea0aeb5, type: 3}
+  m_Name: Settigns
+  m_EditorClassIdentifier: 
+  maxSpeed: 12
+  minSpeed: 8
+  perceptionRadius: 2.5
+  aviodanceRadius: 1
+  maxSteerForce: 10
+  alignWeight: 2
+  cohesionWeight: 1
+  seperateWeight: 3
+  targetWeight: 2
+  mask:
+    serializedVersion: 2
+    m_Bits: 384
+  boundRadius: 0.27
+  avoidCollisionWeight: 20
+  avoidCollisionDistance: 5
